@@ -22,7 +22,7 @@ CCSVreader::CCSVreader(wchar_t *filename)
 	if (!err)
 	{
 		no_lines = get_no_lines();
-		p_data = new double *[no_lines];
+		p_data = new float *[no_lines];
 
 		for (int jj = 0; jj < no_lines; jj++)
 		{
@@ -216,14 +216,14 @@ int CCSVreader::read_line(wchar_t **p_line_out, wchar_t **p_line_2out, int line_
 	return 0;
 }
 //============================================================================
-int CCSVreader::read_word(int line_no,double **pd,int index)
+int CCSVreader::read_word(int line_no,float **pd,int index)
 {
 	wchar_t ch_w;
 	fpos_t pos = 0;
 	fpos_t pos_end_word = 0;
 	fpos_t pos_start_word = 0;
 	int pos_delimiter = 0;
-	double *p_words = NULL;
+	float *p_words = NULL;
 	int word_len = 0;
 	int ii = 0;
 	int jj = 0;
@@ -243,7 +243,7 @@ int CCSVreader::read_word(int line_no,double **pd,int index)
 		}
 	}
 
-	p_words = new double[pos_delimiter + 1];
+	p_words = new float[pos_delimiter + 1];
 	for ( jj = 0; jj < pos_delimiter+1; jj++)
 	{
 		p_words[jj] = NULL;
@@ -269,11 +269,11 @@ int CCSVreader::read_word(int line_no,double **pd,int index)
 				// if not, write 99999999
 				if (isNumber(ptemp))
 				{
-					p_words[iword] = _wtof(ptemp);
+					p_words[iword] =(float) _wtof(ptemp);
 				}
 				else
 				{
-					p_words[iword] = -999999999;
+					p_words[iword] = -999999999.0f;
 				}
 			}
 
@@ -295,11 +295,11 @@ int CCSVreader::read_word(int line_no,double **pd,int index)
 		
 		if (index <= 0)
 		{
-			pd[index] = new double[pos_delimiter + 1];
+			pd[index] = new float[pos_delimiter + 1];
 		}
 		else
 		{
-			pd[index] = new double[pos_delimiter + 1];
+			pd[index] = new float[pos_delimiter + 1];
 			
 		}
 		for (jj = 0; jj <= pos_delimiter; jj++)
