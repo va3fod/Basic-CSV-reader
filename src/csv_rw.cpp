@@ -1,7 +1,7 @@
 // VC aka aschiuta aka VA3FOD
 #include "CSVreader.h"
 
-wchar_t filename[] = L"tabtest2.csv";
+const char *filename = "tabtest2.csv";
 
 int main(void)
 {

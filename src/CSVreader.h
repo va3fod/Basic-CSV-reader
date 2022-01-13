@@ -32,10 +32,13 @@ class CCSVreader
 	//\a - Bell(beep) sound
 
 public:
-	CCSVreader(wchar_t *filename);
+	CCSVreader(const char *filename);
 	~CCSVreader();
 
-public:
+	wchar_t** p_header;
+	float** p_data;
+	errno_t err;
+
 	// public functions
 	int get_header(int line_no);
 	int read_data(int line_start, int line_end);
@@ -50,13 +53,7 @@ private:
 	fpos_t get_pos_begining_line(int line_no);
 	int clean_mess();// close all the opened files and deallocate the memory, delete pointes
 
-public:
-	wchar_t **p_header;
-	float **p_data;
-	errno_t err;
-
 private:
-	wchar_t		*m_filename;
 	const wchar_t *seps_w;	//see constructor for initialization = L" \t,;";
 	FILE		*p_file;
 	wchar_t		*p_line_w;

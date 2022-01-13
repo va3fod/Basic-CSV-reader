@@ -3,9 +3,10 @@
 // VA3FOD
 // simple and basic csv reader class
 
-CCSVreader::CCSVreader(wchar_t *filename)
+CCSVreader::CCSVreader(const char *filename)
 {
-	m_filename = filename;
+	//m_filename = filename;
+
 	seps_w = L" \t,;";
 	p_file = NULL;
 	p_header = NULL;
@@ -15,7 +16,7 @@ CCSVreader::CCSVreader(wchar_t *filename)
 	no_lines = 0;
 	no_tokens = 0;
 	numclosed = 0;
-	err = _wfopen_s(&p_file, m_filename, L"r");
+	err = fopen_s(&p_file, filename, "r");
 
 	lineEndMap.reserve(100);
 	// get the total no of line of the csv file
