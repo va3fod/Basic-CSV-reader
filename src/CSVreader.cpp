@@ -323,10 +323,10 @@ int CCSVreader::read_data( int line_start, int line_end)
 {
 	int line = 0;
 	int jj = 0;
-	int no_lines = 0;
+	//int no_lines = 0;
 
 	// read new data from the csv file, so fill with NULLs the previous data in the p_data
-	no_lines = get_no_lines(); // ??? do we really needs this call  again here ?????
+	//no_lines = get_no_lines(); // ??? do we really needs this call  again here ?????
 
 	for ( jj = 0; jj < no_lines; jj++)
 	{
@@ -335,13 +335,15 @@ int CCSVreader::read_data( int line_start, int line_end)
 
 	line = line_start;
 
+	// THIS LOOP consumes TOOOOOOOO MUCH TIME
+	// TO BE FIXED
 	for (jj = 0; (jj <= line_end - line_start) && jj < no_lines; jj++)
 	{
 		read_line(&p_line_w, &pline_w_copy, line); // abc
 		
 		read_word(line, p_data,jj);
 
-		line++;
+		++line;
 	}
 	
 	return 0;
@@ -411,7 +413,7 @@ fpos_t CCSVreader::get_pos_begining_line(int line_no)
 // close all the opened files and deallocate the memory, delete pointers
 int CCSVreader::clean_mess()
 {
-	int no_lines = get_no_lines();
+//	int no_lines = get_no_lines();
 
 	if (!err)
 	{
