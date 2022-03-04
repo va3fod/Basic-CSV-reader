@@ -7,7 +7,7 @@ CCSVreader::CCSVreader(const char *filename)
 {
 	//m_filename = filename;
 
-	seps_w = L" \t,;";
+	seps_w = " \t,;";
 	p_file = NULL;
 	p_header = NULL;
 	p_data = NULL;
@@ -52,7 +52,7 @@ int CCSVreader::get_header(int line_no)
 		wprintf(L"Tokens from header line:\n");
 
 		no_tokens = get_header_tokens(p_line_w, p_header);
-		p_header = new wchar_t *[no_tokens];
+		p_header = new char *[no_tokens];
 		get_header_tokens(pline_w_copy, p_header);
 
 	}
@@ -60,26 +60,26 @@ int CCSVreader::get_header(int line_no)
 	return 0;
 }
 //============================================================================
-int CCSVreader::get_header_tokens(wchar_t *p_line_cur_w, wchar_t **p_h)
+int CCSVreader::get_header_tokens(char *p_line_cur_w, char **p_h)
 {
 	int ii = 0;
 	size_t header_length = 0;
 	//size_t header_remained = 0;
-	wchar_t *token_w = NULL;
-	wchar_t *contextStr_w = NULL;
+	char *token_w = NULL;
+	char *contextStr_w = NULL;
 
 	// Establish string and get the first token:
-	token_w = wcstok_s(p_line_cur_w, seps_w, &contextStr_w); // C4996
+	token_w = strtok_s(p_line_cur_w, seps_w, &contextStr_w); // C4996
 
 	if (token_w != NULL)
 	{
-		header_length = wcslen(token_w);
-		//header_remained = wcslen(contextStr_w);
+		header_length = strlen(token_w);
+		//header_remained = strlen(contextStr_w);
 
 		if (p_h != NULL)
 		{
-			p_h[0] = new wchar_t[header_length + 1];
-			wcscpy_s(p_h[0], header_length + 1, token_w);
+			p_h[0] = new char[header_length + 1];
+			strcpy_s(p_h[0], header_length + 1, token_w);
 		}
 	}
 
@@ -88,23 +88,23 @@ int CCSVreader::get_header_tokens(wchar_t *p_line_cur_w, wchar_t **p_h)
 		// While there are tokens in "string"
 		if (p_h != NULL)
 		{
-			wprintf(L"%s\n", token_w);
+			printf("%s\n", token_w);
 		}
 
 
 		// Get next token: 
-		token_w = wcstok_s(NULL, seps_w, &contextStr_w); // C4996
+		token_w = strtok_s(NULL, seps_w, &contextStr_w); // C4996
 
 		ii++;
 		if (token_w != NULL)
 		{
-			header_length = wcslen(token_w);
-			//header_remained = wcslen(contextStr_w);
+			header_length = strlen(token_w);
+			//header_remained = strlen(contextStr_w);
 
 			if (p_h != NULL)
 			{
-				p_h[ii] = new wchar_t[header_length + 1];
-				wcscpy_s(p_h[ii], header_length + 1, token_w);
+				p_h[ii] = new char[header_length + 1];
+				strcpy_s(p_h[ii], header_length + 1, token_w);
 			}
 		}
 	}
@@ -113,14 +113,14 @@ int CCSVreader::get_header_tokens(wchar_t *p_line_cur_w, wchar_t **p_h)
 	return ii;
 }
 //============================================================================
-int CCSVreader::read_line(wchar_t **p_line_out, wchar_t **p_line_2out, int line_no)
+int CCSVreader::read_line(char **p_line_out, char **p_line_2out, int line_no)
 {
 	int i_line = 0;
 	int pos_err = 0;
 	fpos_t pos = 0, pos_end_line = 0;
 	int lungime_line = 0;
-	wchar_t *p_line = NULL;
-	wchar_t ch_w = NULL;// L'';
+	char *p_line = NULL;
+	char ch_w = NULL;// L'';
 	errno_t err_cpy = 0;
 
 	// file is open lets get to work
@@ -166,14 +166,14 @@ int CCSVreader::read_line(wchar_t **p_line_out, wchar_t **p_line_2out, int line_
 	
 	if (*p_line_out == NULL)
 	{
-		*p_line_out = new wchar_t[lungime_line];
+		*p_line_out = new char[lungime_line];
 	}
 	else
 	{
 		delete[] *p_line_out;
 		*p_line_out = NULL;
 
-		*p_line_out = new wchar_t[lungime_line];
+		*p_line_out = new char[lungime_line];
 	}
 
 	//pos_err = fsetpos(p_file, &pos);
@@ -189,7 +189,7 @@ int CCSVreader::read_line(wchar_t **p_line_out, wchar_t **p_line_2out, int line_
 		pos_err = fsetpos(p_file, &pos); // new code
 	}
 
-	p_line = fgetws(*p_line_out, lungime_line, p_file);
+	p_line = fgets(*p_line_out, lungime_line, p_file);
 
 	//pos = 0;// back to the begining of the file  // not sure about this ??? if we need this line at all
 	//pos_err = fsetpos(p_file, &pos);  // ?? not sure about this, if we need this line at all
@@ -197,16 +197,16 @@ int CCSVreader::read_line(wchar_t **p_line_out, wchar_t **p_line_2out, int line_
 
 	if (*p_line_2out == NULL)
 	{
-		*p_line_2out = new wchar_t[lungime_line];
+		*p_line_2out = new char[lungime_line];
 	}
 	else
 	{
 		delete[] * p_line_2out;
 		*p_line_2out = NULL;
-		*p_line_2out = new wchar_t[lungime_line];
+		*p_line_2out = new char[lungime_line];
 	}
 
-	err_cpy = wcscpy_s(*p_line_2out, lungime_line, *p_line_out);
+	err_cpy = strcpy_s(*p_line_2out, lungime_line, *p_line_out);
 
 	if (p_line == NULL)
 	{
@@ -219,7 +219,7 @@ int CCSVreader::read_line(wchar_t **p_line_out, wchar_t **p_line_2out, int line_
 //============================================================================
 int CCSVreader::read_word(int line_no,float **pd,int index)
 {
-	wchar_t ch_w;
+	char ch_w;
 	fpos_t pos = 0;
 	fpos_t pos_end_word = 0;
 	fpos_t pos_start_word = 0;
@@ -229,7 +229,7 @@ int CCSVreader::read_word(int line_no,float **pd,int index)
 	int ii = 0;
 	int jj = 0;
 	int iword = 0;
-	wchar_t *ptemp = NULL;
+	char *ptemp = NULL;
 
 	pos = get_pos_begining_line(line_no);
 	fsetpos(p_file, &pos);
@@ -255,14 +255,14 @@ int CCSVreader::read_word(int line_no,float **pd,int index)
 	pos_start_word = 0;
 
 	ch_w = p_line_w[0];
-	while (ii <= (int)wcslen(p_line_w))
+	while (ii <= (int)strlen(p_line_w))
 	{
-		if (ch_w == seps_w[0] || ch_w == seps_w[1] || ch_w == seps_w[2] || ch_w == seps_w[3] || ii == (int)wcslen(p_line_w))
+		if (ch_w == seps_w[0] || ch_w == seps_w[1] || ch_w == seps_w[2] || ch_w == seps_w[3] || ii == (int)strlen(p_line_w))
 		{
 			pos_end_word = ii;
 			word_len = int(pos_end_word - pos_start_word);
-			ptemp = new wchar_t[word_len + 1];
-			wcsncpy_s(ptemp, word_len + 1, &p_line_w[pos_start_word], word_len);
+			ptemp = new char[word_len + 1];
+			strncpy_s(ptemp, word_len + 1, &p_line_w[pos_start_word], word_len);
 			pos_start_word = pos_end_word + 1;
 			if (iword <= pos_delimiter)
 			{
@@ -270,7 +270,7 @@ int CCSVreader::read_word(int line_no,float **pd,int index)
 				// if not, write 99999999
 				if (isNumber(ptemp))
 				{
-					p_words[iword] =(float) _wtof(ptemp);
+					p_words[iword] =(float)atof(ptemp);
 				}
 				else
 				{
@@ -284,7 +284,7 @@ int CCSVreader::read_word(int line_no,float **pd,int index)
 
 		}
 		ii++;
-		if (ii < (int)wcslen(p_line_w))
+		if (ii < (int)strlen(p_line_w))
 		{
 			ch_w = p_line_w[ii];
 		}
@@ -351,7 +351,7 @@ int CCSVreader::read_data( int line_start, int line_end)
 //============================================================================
 int CCSVreader::get_no_lines()
 {
-	wchar_t ch_w;
+	char ch_w;
 	int i_line = 0;
 	fpos_t pos = 0;
 
@@ -389,7 +389,7 @@ int CCSVreader::get_no_lines()
 fpos_t CCSVreader::get_pos_begining_line(int line_no)
 {
 	fpos_t pos = 0;
-	wchar_t ch_w;
+	char ch_w;
 	int i_line = 1;
 
 	pos = 0;// back to the begining of the file
@@ -451,11 +451,11 @@ int CCSVreader::clean_mess()
 	return 0;
 }
 //============================================================================
-bool CCSVreader::isNumber(const wchar_t* str)
+bool CCSVreader::isNumber(const char* str)
 {
-	wchar_t *endptr = 0;
+	char *endptr = 0;
 	double ret = 0;
-	ret = wcstod(str, &endptr);
+	ret = strtod(str, &endptr);
 
 	if (*endptr != '\0' || endptr == str)
 		return false;

@@ -35,7 +35,7 @@ public:
 	CCSVreader(const char *filename);
 	~CCSVreader();
 
-	wchar_t** p_header;
+	char** p_header;
 	float** p_data;
 	errno_t err;
 
@@ -46,18 +46,18 @@ public:
 
 private:
 	// private functions
-	int get_header_tokens(wchar_t *p_line_cur_w, wchar_t **p_h);
-	int read_line(wchar_t **p_line_out, wchar_t **p_line_2out, int line_no);
+	int get_header_tokens(char *p_line_cur_w, char **p_h);
+	int read_line(char **p_line_out, char **p_line_2out, int line_no);
 	int read_word(int line_no, float **pd,int index);
-	bool isNumber(const wchar_t* str);
+	bool isNumber(const char* str);
 	fpos_t get_pos_begining_line(int line_no);
 	int clean_mess();// close all the opened files and deallocate the memory, delete pointes
 
 private:
-	const wchar_t *seps_w;	//see constructor for initialization = L" \t,;";
+	const char *seps_w;	//see constructor for initialization = L" \t,;";
 	FILE		*p_file;
-	wchar_t		*p_line_w;
-	wchar_t		*pline_w_copy;
+	char		*p_line_w;
+	char		*pline_w_copy;
 	int			no_lines;
 	int			no_tokens;
 	int			numclosed;
