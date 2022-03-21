@@ -122,37 +122,6 @@ int CCSVreader::read_line(char **p_line_out, char **p_line_2out, int line_no)
 	char *p_line = NULL;
 	char ch_w = NULL;// L'';
 	errno_t err_cpy = 0;
-
-	// file is open lets get to work
-	/*pos = 0;
-	pos_err = fsetpos(p_file, &pos);
-
-	ch_w = fgetc(p_file);
-
-	while ((ch_w != CarriageReturn && ch_w != EndOfLine && ch_w != WEOF) || i_line<line_no)
-	{
-		ch_w = fgetc(p_file);
-		
-		if (ch_w == CarriageReturn || ch_w == EndOfLine || ch_w == WEOF)
-		{
-			i_line++;
-		}
-
-		if (((ch_w == CarriageReturn || ch_w == EndOfLine || ch_w == WEOF) && i_line == line_no - 1))
-		{
-			pos_err = fgetpos(p_file, &pos);
-		}
-	}
-
-	pos_err = fgetpos(p_file, &pos_end_line);
-	if (ch_w == WEOF)
-	{
-		lungime_line = int(pos_end_line - pos+1);
-	}
-	else
-	{
-		lungime_line = int(pos_end_line - pos - 1);
-	}*/
 	
 	if (line_no > 1)
 	// new code
@@ -231,7 +200,17 @@ int CCSVreader::read_word(int line_no,float **pd,int index)
 	int iword = 0;
 	char *ptemp = NULL;
 
-	pos = get_pos_begining_line(line_no);
+	//pos = get_pos_begining_line(line_no);
+	//pos = lineEndMap[line_no - 1];
+	if (line_no == 1)
+	{
+		pos = 0;
+	}
+	else
+	{
+		pos = lineEndMap[line_no - 2] ;
+	}
+
 	fsetpos(p_file, &pos);
 
 	ch_w = fgetc(p_file);
@@ -250,7 +229,16 @@ int CCSVreader::read_word(int line_no,float **pd,int index)
 		p_words[jj] = NULL;
 	}
 
-	pos = get_pos_begining_line(line_no);
+	//pos = get_pos_begining_line(line_no);
+	if (line_no == 1)
+	{
+		pos = 0;
+	}
+	else
+	{
+		pos = lineEndMap[line_no - 2];
+	}
+	
 	fsetpos(p_file, &pos);
 	pos_start_word = 0;
 
