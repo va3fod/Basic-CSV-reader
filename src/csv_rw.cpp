@@ -20,10 +20,8 @@ int main(void)
 		
 	//	csvfile.read_data(2, csvfile.get_no_lines());
 
-		csvfile.read_data(1, csvfile.get_no_lines());
+		csvfile.read_data(2, csvfile.get_no_lines());
 
-	//	csvfile.read_data(2, csvfile.get_no_lines());
-		//cout << "all data read from the csv file = " << (char)filename[2] << endl;
 	
 	} // end if err for open file
 

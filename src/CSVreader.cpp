@@ -5,9 +5,9 @@
 
 CCSVreader::CCSVreader(const char *filename)
 {
-	//m_filename = filename;
-
-	seps_w = " \t,;";
+	//seps_w = " \t,;";
+	seps_w = "\t,;";
+	
 	p_file = NULL;
 	p_header = NULL;
 	p_data = NULL;
@@ -145,7 +145,6 @@ int CCSVreader::read_line(char **p_line_out, char **p_line_2out, int line_no)
 		*p_line_out = new char[lungime_line];
 	}
 
-	//pos_err = fsetpos(p_file, &pos);
 	if (line_no > 1)
 		// new code
 	{
@@ -159,10 +158,6 @@ int CCSVreader::read_line(char **p_line_out, char **p_line_2out, int line_no)
 	}
 
 	p_line = fgets(*p_line_out, lungime_line, p_file);
-
-	//pos = 0;// back to the begining of the file  // not sure about this ??? if we need this line at all
-	//pos_err = fsetpos(p_file, &pos);  // ?? not sure about this, if we need this line at all
-	//p_line_out[lungime_line - 1] = 0; // BUG mare ascuns aici....  2 zile am pierdut
 
 	if (*p_line_2out == NULL)
 	{
@@ -200,8 +195,6 @@ int CCSVreader::read_word(int line_no,float **pd,int index)
 	int iword = 0;
 	char *ptemp = NULL;
 
-	//pos = get_pos_begining_line(line_no);
-	//pos = lineEndMap[line_no - 1];
 	if (line_no == 1)
 	{
 		pos = 0;
@@ -229,7 +222,6 @@ int CCSVreader::read_word(int line_no,float **pd,int index)
 		p_words[jj] = NULL;
 	}
 
-	//pos = get_pos_begining_line(line_no);
 	if (line_no == 1)
 	{
 		pos = 0;
@@ -311,7 +303,6 @@ int CCSVreader::read_data( int line_start, int line_end)
 {
 	int line = 0;
 	int jj = 0;
-	//int no_lines = 0;
 
 	// read new data from the csv file, so fill with NULLs the previous data in the p_data
 	//no_lines = get_no_lines(); // ??? do we really needs this call  again here ?????
@@ -323,8 +314,6 @@ int CCSVreader::read_data( int line_start, int line_end)
 
 	line = line_start;
 
-	// THIS LOOP consumes TOOOOOOOO MUCH TIME
-	// TO BE FIXED
 	for (jj = 0; (jj <= line_end - line_start) && jj < no_lines; jj++)
 	{
 		read_line(&p_line_w, &pline_w_copy, line); // abc
@@ -415,9 +404,6 @@ int CCSVreader::clean_mess()
 			delete[] pline_w_copy;
 			pline_w_copy = NULL;
 
-
-			// that is wrong, this is a double pointer
-			// to be fixed.
 			delete[] p_header;
 			p_header = { NULL };
 		}
