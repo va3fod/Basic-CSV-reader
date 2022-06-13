@@ -3,6 +3,8 @@
 // VA3FOD
 // simple and basic csv reader class
 
+
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
@@ -35,14 +37,15 @@ public:
 	CCSVreader(const char *filename);
 	~CCSVreader();
 
-	char** p_header;
-	float** p_data;
+	char** pheader;
+	float** pdata; // [row][col] indexing starts from 0
 	errno_t err;
 
 	// public functions
 	int get_header(int line_no);
 	int read_data(int line_start, int line_end);
 	int get_no_lines();
+	void print_header(void);
 
 private:
 	// private functions

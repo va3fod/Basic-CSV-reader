@@ -18,8 +18,6 @@ int main(void)
 
 		// read the numerical data from line xxx to line yyy (use get_no_lines to read to the end of the file)
 		
-	//	csvfile.read_data(2, csvfile.get_no_lines());
-
 		csvfile.read_data(2, csvfile.get_no_lines());
 
 	
@@ -28,3 +26,4 @@ int main(void)
 
 	return true;
 }
+

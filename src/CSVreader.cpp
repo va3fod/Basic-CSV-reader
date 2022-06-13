@@ -9,8 +9,8 @@ CCSVreader::CCSVreader(const char *filename)
 	seps_w = "\t,;";
 	
 	p_file = NULL;
-	p_header = NULL;
-	p_data = NULL;
+	pheader = NULL;
+	pdata = NULL;
 	p_line_w = NULL;
 	pline_w_copy = NULL;
 	no_lines = 0;
@@ -23,11 +23,11 @@ CCSVreader::CCSVreader(const char *filename)
 	if (!err)
 	{
 		no_lines = get_no_lines();
-		p_data = new float *[no_lines];
+		pdata = new float *[no_lines];
 
 		for (int jj = 0; jj < no_lines; jj++)
 		{
-			p_data[jj] = NULL;
+			pdata[jj] = NULL;
 		}
 	}
 	
@@ -46,14 +46,13 @@ int CCSVreader::get_header(int line_no)
 		wprintf(L"fgets error\n");
 	else
 	{
-		//wprintf(L"%s\n", p_line_w);
-
 		// process the line that was read. break it down in tokens based on specified delimiters
-		wprintf(L"Tokens from header line:\n");
+		cout << "Tokens from header line:" << endl;
+		
 
-		no_tokens = get_header_tokens(p_line_w, p_header);
-		p_header = new char *[no_tokens];
-		get_header_tokens(pline_w_copy, p_header);
+		no_tokens = get_header_tokens(p_line_w, pheader);
+		pheader = new char *[no_tokens];
+		get_header_tokens(pline_w_copy, pheader);
 
 	}
 
@@ -64,7 +63,6 @@ int CCSVreader::get_header_tokens(char *p_line_cur_w, char **p_h)
 {
 	int ii = 0;
 	size_t header_length = 0;
-	//size_t header_remained = 0;
 	char *token_w = NULL;
 	char *contextStr_w = NULL;
 
@@ -74,7 +72,6 @@ int CCSVreader::get_header_tokens(char *p_line_cur_w, char **p_h)
 	if (token_w != NULL)
 	{
 		header_length = strlen(token_w);
-		//header_remained = strlen(contextStr_w);
 
 		if (p_h != NULL)
 		{
@@ -90,7 +87,6 @@ int CCSVreader::get_header_tokens(char *p_line_cur_w, char **p_h)
 		{
 			printf("%s\n", token_w);
 		}
-
 
 		// Get next token: 
 		token_w = strtok_s(NULL, seps_w, &contextStr_w); // C4996
@@ -304,12 +300,11 @@ int CCSVreader::read_data( int line_start, int line_end)
 	int line = 0;
 	int jj = 0;
 
-	// read new data from the csv file, so fill with NULLs the previous data in the p_data
-	//no_lines = get_no_lines(); // ??? do we really needs this call  again here ?????
+	// read new data from the csv file, so fill with NULLs the previous data in the pdata
 
 	for ( jj = 0; jj < no_lines; jj++)
 	{
-		p_data[jj] = NULL;
+		pdata[jj] = NULL;
 	}
 
 	line = line_start;
@@ -318,7 +313,7 @@ int CCSVreader::read_data( int line_start, int line_end)
 	{
 		read_line(&p_line_w, &pline_w_copy, line); // abc
 		
-		read_word(line, p_data,jj);
+		read_word(line, pdata,jj);
 
 		++line;
 	}
@@ -350,7 +345,6 @@ int CCSVreader::get_no_lines()
 				lineEndMap.push_back(pos);
 				
 			}
-			
 		}
 	}
 	if (!linesMapped)
@@ -404,21 +398,21 @@ int CCSVreader::clean_mess()
 			delete[] pline_w_copy;
 			pline_w_copy = NULL;
 
-			delete[] p_header;
-			p_header = { NULL };
+			delete[] pheader;
+			pheader = { NULL };
 		}
 
 
 		// fix the delete of double pointer allocation
-		if (p_data != NULL)
+		if (pdata != NULL)
 		{
 			
 			for (int jj = 0; jj < no_lines; jj++)
 			{
-				delete[] p_data[jj];
+				delete[] pdata[jj];
 			}
-			delete[] p_data;
-			p_data = NULL;
+			delete[] pdata;
+			pdata = NULL;
 		}
 	}
 
@@ -434,4 +428,13 @@ bool CCSVreader::isNumber(const char* str)
 	if (*endptr != '\0' || endptr == str)
 		return false;
 	return true;
+}
+//***************************************
+void CCSVreader::print_header(void)
+{
+	// print pheader of the csv file to the console output
+	for (int i = 0; i < no_tokens; i++)
+	{
+		cout<<" "<<pheader[i]<<" ";
+	}
 }
