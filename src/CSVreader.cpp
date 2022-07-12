@@ -37,7 +37,7 @@ CCSVreader::~CCSVreader()
 {
 	clean_mess();
 
-	cout << "astalavista baby -> destructor called here." << endl;
+	//cout << "astalavista baby -> destructor called here." << endl;
 }
 //============================================================================
 int CCSVreader::get_header(int line_no)
@@ -95,7 +95,6 @@ int CCSVreader::get_header_tokens(char *p_line_cur_w, char **p_h)
 		if (token_w != NULL)
 		{
 			header_length = strlen(token_w);
-			//header_remained = strlen(contextStr_w);
 
 			if (p_h != NULL)
 			{
@@ -250,7 +249,15 @@ int CCSVreader::read_word(int line_no,float **pd,int index)
 				}
 				else
 				{
-					p_words[iword] = -999999999.0f;
+					if (pd[index-1] && index>0)
+					{
+						p_words[iword] = pd[index-1][iword];
+					}
+					else
+					{
+						p_words[iword] = -999999999.0f;
+					}
+					
 				}
 			}
 

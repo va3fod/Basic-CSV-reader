@@ -3,8 +3,6 @@
 // VA3FOD
 // simple and basic csv reader class
 
-
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>

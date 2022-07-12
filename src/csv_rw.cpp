@@ -1,7 +1,8 @@
 // VC aka aschiuta aka VA3FOD
 #include "CSVreader.h"
+#include <string>
 
-const char *filename = "tabtest2.csv";
+const char *filename = "Test2.csv";
 
 int main(void)
 {
@@ -19,6 +20,8 @@ int main(void)
 		// read the numerical data from line xxx to line yyy (use get_no_lines to read to the end of the file)
 		
 		csvfile.read_data(2, csvfile.get_no_lines());
+
+		cout << "number of lines read "<< csvfile.get_no_lines() << endl;
 
 	
 	} // end if err for open file
