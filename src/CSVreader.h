@@ -62,5 +62,7 @@ private:
 	vector<fpos_t>lineEndMap;
 	bool linesMapped = false;
 
+
+
 };
 
