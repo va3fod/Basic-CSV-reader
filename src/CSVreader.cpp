@@ -364,6 +364,7 @@ int CCSVreader::get_no_lines()
 	return i_line;
 }
 //============================================================================
+/*
 fpos_t CCSVreader::get_pos_begining_line(int line_no)
 {
 	fpos_t pos = 0;
@@ -386,7 +387,7 @@ fpos_t CCSVreader::get_pos_begining_line(int line_no)
 	}
 
 	return pos;
-}
+}*/
 //============================================================================
 // close all the opened files and deallocate the memory, delete pointers
 int CCSVreader::clean_mess()
@@ -436,7 +437,7 @@ bool CCSVreader::isNumber(const char* str)
 		return false;
 	return true;
 }
-//***************************************
+//============================================================================
 void CCSVreader::print_header(void)
 {
 	// print pheader of the csv file to the console output

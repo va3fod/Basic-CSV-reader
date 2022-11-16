@@ -39,22 +39,19 @@ public:
 	float** pdata; // [row][col] indexing starts from 0
 	errno_t err;
 
-	// public functions
 	int get_header(int line_no);
 	int read_data(int line_start, int line_end);
 	int get_no_lines();
 	void print_header(void);
 
 private:
-	// private functions
 	int get_header_tokens(char *p_line_cur_w, char **p_h);
 	int read_line(char **p_line_out, char **p_line_2out, int line_no);
 	int read_word(int line_no, float **pd,int index);
 	bool isNumber(const char* str);
-	fpos_t get_pos_begining_line(int line_no);
-	int clean_mess();// close all the opened files and deallocate the memory, delete pointes
+	//fpos_t get_pos_begining_line(int line_no);
+	int clean_mess();// close all the opened files and deallocate and clean up the memory
 
-private:
 	const char *seps_w;	//see constructor for initialization = L" \t,;";
 	FILE		*p_file;
 	char		*p_line_w;
