@@ -299,6 +299,8 @@ int CCSVreader::read_word(int line_no,float **pd,int index)
 		return 0;
 	}
 
+	
+
 	return 1;
 }
 //============================================================================
@@ -325,6 +327,9 @@ int CCSVreader::read_data( int line_start, int line_end)
 		++line;
 	}
 	
+	// copy the pdata matrix to the matrix type of vector , for easy access to the user.
+	//y.insert(y.end(), pdata, pdata + 10);
+
 	return 0;
 }
 //============================================================================

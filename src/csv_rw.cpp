@@ -18,7 +18,7 @@ int main(void)
 		csvfile.get_header(1);
 
 		// read the numerical data from line xxx to line yyy (use get_no_lines to read to the end of the file)
-		
+		// it will read the WHOLE csv file, and store it in the memory like a table (matrix)
 		csvfile.read_data(2, csvfile.get_no_lines());
 
 		cout << "number of lines read "<< csvfile.get_no_lines() << endl;

@@ -37,6 +37,7 @@ public:
 
 	char** pheader;
 	float** pdata; // [row][col] indexing starts from 0
+	vector <vector<float>>y;
 	errno_t err;
 
 	int get_header(int line_no);
