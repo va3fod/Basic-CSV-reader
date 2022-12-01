@@ -49,7 +49,6 @@ int CCSVreader::get_header(int line_no)
 		// process the line that was read. break it down in tokens based on specified delimiters
 		cout << "Tokens from header line:" << endl;
 		
-
 		no_tokens = get_header_tokens(p_line_w, pheader);
 		pheader = new char *[no_tokens];
 		get_header_tokens(pline_w_copy, pheader);
@@ -299,8 +298,6 @@ int CCSVreader::read_word(int line_no,float **pd,int index)
 		return 0;
 	}
 
-	
-
 	return 1;
 }
 //============================================================================
@@ -328,7 +325,9 @@ int CCSVreader::read_data( int line_start, int line_end)
 	}
 	
 	// copy the pdata matrix to the matrix type of vector , for easy access to the user.
-	//y.insert(y.end(), pdata, pdata + 10);
+	
+	//y.insert(y.end(), pdata[1], pdata[1] + no_lines);
+	
 
 	return 0;
 }
@@ -368,31 +367,16 @@ int CCSVreader::get_no_lines()
 
 	return i_line;
 }
-//============================================================================
-/*
-fpos_t CCSVreader::get_pos_begining_line(int line_no)
+const int CCSVreader::get_no_data_rows()
 {
-	fpos_t pos = 0;
-	char ch_w;
-	int i_line = 1;
+	return no_lines-1;
+}
 
-	pos = 0;// back to the begining of the file
-	fsetpos(p_file, &pos);
-	ch_w = fgetc(p_file);
-
-	while (ch_w != EOF && ch_w != 65535 && i_line < line_no)
-	{
-		ch_w = fgetc(p_file);
-
-		if (ch_w == EndOfLine)
-		{
-			i_line++;
-			fgetpos(p_file, &pos);
-		}
-	}
-
-	return pos;
-}*/
+// create the CCSVreader get number of coulms method
+const int CCSVreader::get_no_columns(void)
+{
+	return no_tokens;
+}
 //============================================================================
 // close all the opened files and deallocate the memory, delete pointers
 int CCSVreader::clean_mess()
@@ -448,6 +432,8 @@ void CCSVreader::print_header(void)
 	// print pheader of the csv file to the console output
 	for (int i = 0; i < no_tokens; i++)
 	{
-		cout<<" "<<pheader[i]<<" ";
+		cout<<" "<<pheader[i]<<"\t";
 	}
+	cout << endl;
 }
+

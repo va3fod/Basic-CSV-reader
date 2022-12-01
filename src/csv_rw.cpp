@@ -23,7 +23,23 @@ int main(void)
 
 		cout << "number of lines read "<< csvfile.get_no_lines() << endl;
 
-	
+		// print the header of the csv file
+		csvfile.print_header();
+		
+		// and display the data
+		for (int i = 0; i < csvfile.get_no_data_rows(); i++)
+		{
+			for (int j = 0; j < csvfile.get_no_columns(); j++)
+			{
+				cout << csvfile.pdata[i][j] << "\t";
+			}
+			cout << endl;
+		}
+
+		// print another line to say the string "end of file"
+		cout << "end of file" << endl;
+		
+
 	} // end if err for open file
 
 

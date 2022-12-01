@@ -43,6 +43,8 @@ public:
 	int get_header(int line_no);
 	int read_data(int line_start, int line_end);
 	int get_no_lines();
+	const int get_no_data_rows(void);
+	const int get_no_columns(void);
 	void print_header(void);
 
 private:
@@ -50,16 +52,16 @@ private:
 	int read_line(char **p_line_out, char **p_line_2out, int line_no);
 	int read_word(int line_no, float **pd,int index);
 	bool isNumber(const char* str);
-	//fpos_t get_pos_begining_line(int line_no);
 	int clean_mess();// close all the opened files and deallocate and clean up the memory
 
 	const char *seps_w;	//see constructor for initialization = L" \t,;";
-	FILE		*p_file;
-	char		*p_line_w;
-	char		*pline_w_copy;
-	int			no_lines;
-	int			no_tokens;
-	int			numclosed;
+	FILE *p_file;
+	char *p_line_w;
+	char *pline_w_copy;
+	int	no_lines;
+	int no_of_columns;
+	int	no_tokens;
+	int	numclosed;
 	vector<fpos_t>lineEndMap;
 	bool linesMapped = false;
 
