@@ -14,6 +14,7 @@ CCSVreader::CCSVreader(const char *filename)
 	p_line_w = NULL;
 	pline_w_copy = NULL;
 	no_lines = 0;
+	no_of_columns = 0;
 	no_tokens = 0;
 	numclosed = 0;
 	err = fopen_s(&p_file, filename, "r");
@@ -30,14 +31,11 @@ CCSVreader::CCSVreader(const char *filename)
 			pdata[jj] = NULL;
 		}
 	}
-	
 }
 //============================================================================
 CCSVreader::~CCSVreader()
 {
 	clean_mess();
-
-	//cout << "astalavista baby -> destructor called here." << endl;
 }
 //============================================================================
 int CCSVreader::get_header(int line_no)
