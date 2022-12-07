@@ -2,6 +2,9 @@
 #include "CSVreader.h"
 #include <string>
 
+#define _USE_MATH_DEFINES // for C++
+#include <math.h>
+
 const char *filename = "Test2.csv";
 
 int main(void)
@@ -46,14 +49,75 @@ int main(void)
 		// print another line to say the string "end of file"
 		cout << "end of file" << endl;
 
-		//y1.insert(y1.end(), csvfile.pdata[0], csvfile.pdata[0] + csvfile.get_no_columns());
-		
-		
-		// iterate through the vector and print the values
-		for (int i = 0; i < y1.size(); i++)
+		// create a column array of 2 elements and initialiaze it with random data from 0 to 9
+		cout << "xarray" << endl;
+		double xarray[2] = { 0, 1 };
+		// print the array
+		for (int i = 0; i < 2; i++)
 		{
-			cout << y1[i] << endl;
+			cout << xarray[i] << "\t";
 		}
+		
+		cout << endl;
+		
+		
+		// create a 2x2 rotation matrix using vector type for 45 degrees
+		vector<vector<double>> rotmat = { { cos(M_PI / 4), -sin(M_PI / 4) }, { sin(M_PI / 4), cos(M_PI / 4) } };
+		
+		// create a new vector y2 and assign the result of the rotation matrix to "xarray"
+		vector<double> y2 = { rotmat[0][0] * xarray[0] + rotmat[0][1] * xarray[1], rotmat[1][0] * xarray[0] + rotmat[1][1] * xarray[1] };
+		
+		
+		// print the result
+		cout << "y2 = " << y2[0] << " " << y2[1] << endl;
+		
+		// create a new vector y3 and assign the result of the rotation matrix applied to "xarray"
+		vector<double> y3 = { rotmat[0][0] * y2[0] + rotmat[0][1] * y2[1], rotmat[1][0] * y2[0] + rotmat[1][1] * y2[1] };
+		y3 = { rotmat[0][0] * y3[0] + rotmat[0][1] * y3[1], rotmat[1][0] * y3[0] + rotmat[1][1] * y3[1] };
+		y3 = { rotmat[0][0] * y3[0] + rotmat[0][1] * y3[1], rotmat[1][0] * y3[0] + rotmat[1][1] * y3[1] };
+		y3 = { rotmat[0][0] * y3[0] + rotmat[0][1] * y3[1], rotmat[1][0] * y3[0] + rotmat[1][1] * y3[1] };
+		y3 = { rotmat[0][0] * y3[0] + rotmat[0][1] * y3[1], rotmat[1][0] * y3[0] + rotmat[1][1] * y3[1] };
+		y3 = { rotmat[0][0] * y3[0] + rotmat[0][1] * y3[1], rotmat[1][0] * y3[0] + rotmat[1][1] * y3[1] };
+		y3 = { rotmat[0][0] * y3[0] + rotmat[0][1] * y3[1], rotmat[1][0] * y3[0] + rotmat[1][1] * y3[1] }; // back to original array rotation
+		// print the result
+		cout << "y3 = " << y3[0] << " " << y3[1] << endl;
+		
+		
+		
+	
+		
+		
+		
+		
+		
+	
+		
+		
+		
+		
+		
+			
+		
+		
+		
+		
+		
+		
+		
+		
+	
+		
+		
+		
+		
+	
+		
+		
+
+				
+		
+		
+		
 		
 		
 		
