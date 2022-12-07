@@ -322,11 +322,6 @@ int CCSVreader::read_data( int line_start, int line_end)
 		++line;
 	}
 	
-	// copy the pdata matrix to the matrix type of vector , for easy access to the user.
-	
-	//y.insert(y.end(), pdata[1], pdata[1] + no_lines);
-	
-
 	return 0;
 }
 //============================================================================
@@ -379,7 +374,6 @@ const int CCSVreader::get_no_columns(void)
 // close all the opened files and deallocate the memory, delete pointers
 int CCSVreader::clean_mess()
 {
-//	int no_lines = get_no_lines();
 
 	if (!err)
 	{
@@ -396,7 +390,6 @@ int CCSVreader::clean_mess()
 			delete[] pheader;
 			pheader = { NULL };
 		}
-
 
 		// fix the delete of double pointer allocation
 		if (pdata != NULL)
@@ -434,4 +427,17 @@ void CCSVreader::print_header(void)
 	}
 	cout << endl;
 }
+
+void CCSVreader::GetVecData(int col, vector<float>& vecout)
+{
+	for (int i = 0; i < get_no_data_rows(); i++)
+	{
+		if (col >= 0 && col < no_tokens)
+		{
+			vecout.push_back(pdata[i][col]);
+		}
+	}
+}
+
+
 

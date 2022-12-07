@@ -46,6 +46,7 @@ public:
 	const int get_no_data_rows(void);
 	const int get_no_columns(void);
 	void print_header(void);
+	void GetVecData(int col, vector<float>& vecout);
 
 private:
 	int get_header_tokens(char *p_line_cur_w, char **p_h);
