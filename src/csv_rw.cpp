@@ -1,6 +1,7 @@
 // VC aka aschiuta aka VA3FOD
 #include "CSVreader.h"
 #include <string>
+#include <sciplot\sciplot.hpp>
 
 #define _USE_MATH_DEFINES // for C++
 #include <math.h>
@@ -43,7 +44,7 @@ int main(void)
 		}
 		cout << endl;
 		
-		// create a vector y1 and assign first column from pdata to it
+		// create a vector y1 and assign a column from pdata to it
 		vector<float> y1;
 		csvfile.GetVecData(2, y1);
 		
