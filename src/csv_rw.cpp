@@ -6,6 +6,8 @@
 #define _USE_MATH_DEFINES // for C++
 #include <math.h>
 
+using namespace sciplot;
+
 const char *filename = "Test2.csv";
 
 int main(void)
@@ -45,17 +47,64 @@ int main(void)
 		cout << endl;
 		
 		// create a vector y1 and assign a column from pdata to it
-		vector<float> y1;
-		csvfile.GetVecData(2, y1);
+		vector<float> x;
+		csvfile.GetVecData(0, x);
+		vector<float> y1,y2,y3;
+		csvfile.GetVecData(1, y1);
+		csvfile.GetVecData(2, y2);
+		csvfile.GetVecData(3, y3);
+		
+		//y4 = GetVecData(4);
 		
 		// using for auto iterator to print vector elements
-		cout << "column 2" << endl;
-		for (auto i : y1)
+		cout << "column nth" << endl;
+		for (auto i : x)
 		{
-			cout << i << endl;
+			//cout << i << endl;
 		}
 
+		// using sciplot, plot the data for "x" and "y1"
+		sciplot::Plot2D plot,plot2,plot3;
 		
+		plot.xlabel("x");
+		plot.ylabel("y1");
+		plot.legend()
+			.atTop()
+			.fontSize(10)
+			.displayHorizontal()
+			.displayExpandWidthBy(2);
+
+		plot3.xlabel("x");
+		plot3.ylabel("y2");
+		plot3.legend()
+			.atTop()
+			.fontSize(10)
+			.displayHorizontal()
+			.displayExpandWidthBy(2);
+
+		plot3.xlabel("x");
+		plot3.ylabel("y3");
+		plot3.legend()
+			.atTop()
+			.fontSize(10)
+			.displayHorizontal()
+			.displayExpandWidthBy(2);
+
+		plot.drawCurve(x, y1).label("y1");
+		plot2.drawCurve(x, y2).label("y2");
+		plot3.drawCurve(x, y3).label("y3");
+
+		// Create figure to hold plot
+		Figure fig = { {plot} ,{plot2} ,{plot3} };
+		// Create canvas to hold figure
+		Canvas canvas = { {fig} };
+		canvas.size(1048, 800);
+
+		// Show the plot in a pop-up window
+		canvas.show();
+
+		// Save the plot to a SVG file
+		canvas.save("val plot output.svg");
 		
 
 	} // end if err for open file
