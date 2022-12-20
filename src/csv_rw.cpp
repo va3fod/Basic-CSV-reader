@@ -51,8 +51,8 @@ int main(void)
 		csvfile.GetVecData(0, x);
 		vector<float> y1,y2,y3;
 		csvfile.GetVecData(1, y1);
-		csvfile.GetVecData(2, y2);
-		csvfile.GetVecData(3, y3);
+		y2 = csvfile.GetVecData(2);
+		y3 = csvfile.GetVecData("speed");
 		
 		//y4 = GetVecData(4);
 		

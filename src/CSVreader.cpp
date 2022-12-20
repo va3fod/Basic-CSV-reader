@@ -14,7 +14,6 @@ CCSVreader::CCSVreader(const char *filename)
 	p_line_w = NULL;
 	pline_w_copy = NULL;
 	no_lines = 0;
-	no_of_columns = 0;
 	no_tokens = 0;
 	numclosed = 0;
 	err = fopen_s(&p_file, filename, "r");
@@ -439,5 +438,51 @@ void CCSVreader::GetVecData(int col, vector<float>& vecout)
 	}
 }
 
+vector<float>& CCSVreader::GetVecData(int col) 
+{
+	static vector<float> vecout;  // Declare vecout as a static member variable
+	vecout.clear();  // Clear vecout to reuse it
 
+	if (col >= 0 && col < no_tokens)   // Check col once before the loop
+	{
+		vecout.reserve(get_no_data_rows());  // Preallocate memory for the vector
+		
+		for (int i = 0; i < get_no_data_rows(); i++) 
+		{
+			vecout.emplace_back(pdata[i][col]);  // Use emplace_back to insert elements
+		}
+	}
+
+	return vecout;
+}
+
+
+// create another method to get the column as a vector, based on the column name
+vector<float>& CCSVreader::GetVecData(std::string colname)
+{
+	static vector <float> vecout;
+	int col = -1;
+	vecout.clear();
+	
+	for (int i = 0; i < no_tokens; i++)
+	{
+		if (colname.compare(pheader[i]) == 0)
+		{
+			col = i;
+			break;
+		}
+	}
+
+	if (col >= 0 && col < no_tokens)   // Check col once before the loop
+	{
+		vecout.reserve(get_no_data_rows());  // Preallocate memory for the vector
+
+		for (int i = 0; i < get_no_data_rows(); i++)
+		{
+			vecout.emplace_back(pdata[i][col]);  // Use emplace_back to insert elements
+		}
+	}
+	
+	return vecout;
+}
 

@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <vector>
+#include <string>
 
 using std::cout;
 using std::wcout;
@@ -47,6 +48,8 @@ public:
 	const int get_no_columns(void);
 	void print_header(void);
 	void GetVecData(int col, vector<float>& vecout);
+	vector<float>& GetVecData(int col);
+	vector<float>& GetVecData(std::string colname);
 
 private:
 	int get_header_tokens(char *p_line_cur_w, char **p_h);
@@ -60,7 +63,6 @@ private:
 	char *p_line_w;
 	char *pline_w_copy;
 	int	no_lines;
-	int no_of_columns;
 	int	no_tokens;
 	int	numclosed;
 	vector<fpos_t>lineEndMap;
