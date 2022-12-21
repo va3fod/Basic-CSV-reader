@@ -15,6 +15,7 @@ using std::endl;
 using std::cin;
 using std::vector;
 
+
 class CCSVreader
 {
 	//#define EndOfLine	(10) 
@@ -47,7 +48,7 @@ public:
 	const int get_no_data_rows(void);
 	const int get_no_columns(void);
 	void print_header(void);
-	void GetVecData(int col, vector<float>& vecout);
+	void GetVecData(int col, vector<float>& vecoutp);
 	vector<float>& GetVecData(int col);
 	vector<float>& GetVecData(std::string colname);
 
@@ -67,8 +68,5 @@ private:
 	int	numclosed;
 	vector<fpos_t>lineEndMap;
 	bool linesMapped = false;
-
-
-
 };
 

@@ -3,6 +3,8 @@
 // VA3FOD
 // simple and basic csv reader class
 
+//vector <float> CCSVreader::vecout;
+
 CCSVreader::CCSVreader(const char *filename)
 {
 	//seps_w = " \t,;";
@@ -427,13 +429,13 @@ void CCSVreader::print_header(void)
 	cout << endl;
 }
 
-void CCSVreader::GetVecData(int col, vector<float>& vecout)
+void CCSVreader::GetVecData(int col, vector<float>& vecoutp)
 {
 	for (int i = 0; i < get_no_data_rows(); i++)
 	{
 		if (col >= 0 && col < no_tokens)
 		{
-			vecout.push_back(pdata[i][col]);
+			vecoutp.push_back(pdata[i][col]);
 		}
 	}
 }

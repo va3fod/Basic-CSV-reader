@@ -49,10 +49,11 @@ int main(void)
 		// create a vector y1 and assign a column from pdata to it
 		vector<float> x;
 		csvfile.GetVecData(0, x);
+		
 		vector<float> y1,y2,y3;
-		csvfile.GetVecData(1, y1);
-		y2 = csvfile.GetVecData(2);
-		y3 = csvfile.GetVecData("speed");
+		y1 = csvfile.GetVecData("y1");
+		y2 = csvfile.GetVecData("speed");
+		y3 = csvfile.GetVecData("H");
 		
 		//y4 = GetVecData(4);
 		
