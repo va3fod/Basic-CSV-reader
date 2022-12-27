@@ -33,41 +33,31 @@ int main(void)
 		csvfile.print_header();
 		cout << endl;
 		cout << "------------------------------------" << endl;
-
-		// and display the data
-		for (int i = 0; i < csvfile.get_no_data_rows(); i++)
-		{
-			for (int j = 0; j < csvfile.get_no_columns(); j++)
-			{
-				cout << csvfile.pdata[i][j] << "\t";
-				
-			}
-			cout << endl;
-		}
-		cout << endl;
+		cout << csvfile << endl;
 		
 		// create a vector y1 and assign a column from pdata to it
-		vector<float> x;
-		csvfile.GetVecData(0, x);
+		vector<float> time;
+		time = csvfile.GetVecData("time");
 		
-		vector<float> y1,y2,y3;
-		y1 = csvfile.GetVecData("y1");
-		y2 = csvfile.GetVecData("speed");
-		y3 = csvfile.GetVecData("H");
+		vector<float> y1 = csvfile.GetVecData("y1");
+		vector<float> y2 = csvfile.GetVecData("speed");
+		vector<float> y3 = csvfile.GetVecData("H");
+
+
+
+
+
+
+
+
+
+
 		
-		//y4 = GetVecData(4);
-		
-		// using for auto iterator to print vector elements
-		cout << "column nth" << endl;
-		for (auto i : x)
-		{
-			//cout << i << endl;
-		}
 
 		// using sciplot, plot the data for "x" and "y1"
 		sciplot::Plot2D plot,plot2,plot3;
 		
-		plot.xlabel("x");
+		plot.xlabel("time");
 		plot.ylabel("y1");
 		plot.legend()
 			.atTop()
@@ -75,7 +65,7 @@ int main(void)
 			.displayHorizontal()
 			.displayExpandWidthBy(2);
 
-		plot3.xlabel("x");
+		plot3.xlabel("time");
 		plot3.ylabel("y2");
 		plot3.legend()
 			.atTop()
@@ -83,7 +73,7 @@ int main(void)
 			.displayHorizontal()
 			.displayExpandWidthBy(2);
 
-		plot3.xlabel("x");
+		plot3.xlabel("time");
 		plot3.ylabel("y3");
 		plot3.legend()
 			.atTop()
@@ -91,9 +81,9 @@ int main(void)
 			.displayHorizontal()
 			.displayExpandWidthBy(2);
 
-		plot.drawCurve(x, y1).label("y1");
-		plot2.drawCurve(x, y2).label("y2");
-		plot3.drawCurve(x, y3).label("y3");
+		plot.drawCurve(time, y1).label("y1");
+		plot2.drawCurve(time, y2).label("y2");
+		plot3.drawCurve(time, y3).label("y3");
 
 		// Create figure to hold plot
 		Figure fig = { {plot} ,{plot2} ,{plot3} };

@@ -48,7 +48,7 @@ set multiplot layout 3,1 rowsfirst downwards
 #==============================================================================
 # SETUP COMMANDS
 #==============================================================================
-set xlabel 'x' enhanced textcolor '#404040'
+set xlabel 'time' enhanced textcolor '#404040'
 set ylabel 'y1' enhanced textcolor '#404040'
 
 set border 3 front linetype 1 linewidth 2 linecolor '#404040'
@@ -120,7 +120,7 @@ plot \
 #==============================================================================
 # SETUP COMMANDS
 #==============================================================================
-set xlabel 'x' enhanced textcolor '#404040'
+set xlabel 'time' enhanced textcolor '#404040'
 set ylabel 'y3' enhanced textcolor '#404040'
 
 set border 3 front linetype 1 linewidth 2 linecolor '#404040'

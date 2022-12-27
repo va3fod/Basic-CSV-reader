@@ -15,9 +15,9 @@ using std::endl;
 using std::cin;
 using std::vector;
 
-
 class CCSVreader
 {
+public:
 	//#define EndOfLine	(10) 
 	//#define CarriageReturn (13)
 
@@ -33,13 +33,11 @@ class CCSVreader
 	//\f - Formfeed
 	//\a - Bell(beep) sound
 
-public:
 	CCSVreader(const char *filename);
 	~CCSVreader();
 
 	char** pheader;
 	float** pdata; // [row][col] indexing starts from 0
-	vector <vector<float>>y;
 	errno_t err;
 
 	int get_header(int line_no);
@@ -51,6 +49,19 @@ public:
 	void GetVecData(int col, vector<float>& vecoutp);
 	vector<float>& GetVecData(int col);
 	vector<float>& GetVecData(std::string colname);
+
+	friend std::ostream& operator<<(std::ostream& out, const CCSVreader& csvf)
+	{
+		for (int i = 0; i < csvf.no_lines-1; i++)
+		{
+			for (int j = 0; j < csvf.no_tokens; j++)
+			{
+				out << csvf.pdata[i][j] << " ";
+			}
+			out << std::endl;
+		}
+		return out;
+	}
 
 private:
 	int get_header_tokens(char *p_line_cur_w, char **p_h);
