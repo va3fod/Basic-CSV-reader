@@ -1,4 +1,5 @@
-// VC aka aschiuta aka VA3FOD
+// VA3FOD
+#pragma once
 #include "CSVreader.h"
 #include <string>
 #include <sciplot\sciplot.hpp>

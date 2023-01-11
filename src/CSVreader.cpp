@@ -1,9 +1,6 @@
 #include "CSVreader.h"
-
 // VA3FOD
 // simple and basic csv reader class
-
-//vector <float> CCSVreader::vecout;
 
 CCSVreader::CCSVreader(const char *filename)
 {
@@ -42,7 +39,9 @@ CCSVreader::~CCSVreader()
 int CCSVreader::get_header(int line_no)
 {
 	if (read_line(&p_line_w, &pline_w_copy, line_no))
-		wprintf(L"fgets error\n");
+	{
+		wprintf_s(L"fgets error\n");
+	}
 	else
 	{
 		// process the line that was read. break it down in tokens based on specified delimiters
@@ -83,7 +82,7 @@ int CCSVreader::get_header_tokens(char *p_line_cur_w, char **p_h)
 		// While there are tokens in "string"
 		if (p_h != NULL)
 		{
-			printf("%s\n", token_w);
+			printf_s("%s\n", token_w);
 		}
 
 		// Get next token: 
@@ -117,7 +116,6 @@ int CCSVreader::read_line(char **p_line_out, char **p_line_2out, int line_no)
 	errno_t err_cpy = 0;
 	
 	if (line_no > 1)
-	// new code
 	{
 		lungime_line = int(lineEndMap[line_no - 1] - lineEndMap[line_no - 2]-1);
 	}
@@ -139,15 +137,14 @@ int CCSVreader::read_line(char **p_line_out, char **p_line_2out, int line_no)
 	}
 
 	if (line_no > 1)
-		// new code
 	{
 		pos = lineEndMap[line_no - 2];
-		pos_err = fsetpos(p_file, &pos); // new code
+		pos_err = fsetpos(p_file, &pos); 
 	}
 	else
 	{
 		pos = 0;
-		pos_err = fsetpos(p_file, &pos); // new code
+		pos_err = fsetpos(p_file, &pos); 
 	}
 
 	p_line = fgets(*p_line_out, lungime_line, p_file);
@@ -457,7 +454,6 @@ vector<float>& CCSVreader::GetVecData(int col)
 
 	return vecout;
 }
-
 
 // create another method to get the column as a vector, based on the column name
 vector<float>& CCSVreader::GetVecData(std::string colname)

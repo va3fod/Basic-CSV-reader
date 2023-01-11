@@ -1,5 +1,4 @@
 #pragma once
-
 // VA3FOD
 // simple and basic csv reader class
 
