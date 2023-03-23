@@ -1,6 +1,6 @@
 # BasicCSVreader
 
-Project Name: VA3FOD - CSV Reader and Plotter
+Project Name: VA3FOD - CSV Reader
 This project is a simple demonstration of how to use the CSVreader class to read and plot data from a CSV file. The project is written in C++ and uses the sciplot library to plot the data.
 
 Usage
