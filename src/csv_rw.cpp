@@ -92,7 +92,7 @@ int main(void)
 		canvas.show();
 
 		// Save the plot to a SVG file
-		canvas.save("val plot output.svg");
+		canvas.save("plot csv read data.svg");
 		
 
 	} // end if err for open file
