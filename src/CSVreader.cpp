@@ -45,7 +45,7 @@ int CCSVreader::get_header(int line_no)
 	else
 	{
 		// process the line that was read. break it down in tokens based on specified delimiters
-		cout << "Tokens from header line:" << endl;
+		//cout << "Tokens from header line:" << endl;
 		
 		no_tokens = get_header_tokens(p_line_w, pheader);
 		pheader = new char *[no_tokens];
@@ -80,10 +80,10 @@ int CCSVreader::get_header_tokens(char *p_line_cur_w, char **p_h)
 	while (token_w != NULL)
 	{
 		// While there are tokens in "string"
-		if (p_h != NULL)
+	/*	if (p_h != NULL)
 		{
 			printf_s("%s\n", token_w);
-		}
+		}*/
 
 		// Get next token: 
 		token_w = strtok_s(NULL, seps_w, &contextStr_w); // C4996

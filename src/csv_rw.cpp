@@ -3,9 +3,7 @@
 #include "CSVreader.h"
 #include <string>
 #include <sciplot\sciplot.hpp>
-
-#define _USE_MATH_DEFINES // for C++
-#include <math.h>
+#include <cmath>
 
 using namespace sciplot;
 
@@ -34,25 +32,15 @@ int main(void)
 		csvfile.print_header();
 		cout << endl;
 		cout << "------------------------------------" << endl;
-		cout << csvfile << endl;
+		//cout << csvfile << endl; // print the whole csv file
 		
-		// create a vector y1 and assign a column from pdata to it
+		// create a vectors for specific data columns to be easier to be plot.
 		vector<float> time;
 		time = csvfile.GetVecData("time");
 		
 		vector<float> y1 = csvfile.GetVecData("y1");
 		vector<float> y2 = csvfile.GetVecData("speed");
 		vector<float> y3 = csvfile.GetVecData("H");
-
-
-
-
-
-
-
-
-
-
 		
 
 		// using sciplot, plot the data for "x" and "y1"
