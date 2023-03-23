@@ -41,7 +41,7 @@ public:
 
 	int get_header(int line_no);
 	int read_data(int line_start, int line_end);
-	int get_no_lines();
+	const int get_no_lines();
 	const int get_no_data_rows(void);
 	const int get_no_columns(void);
 	void print_header(void);
@@ -51,7 +51,9 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& out, const CCSVreader& csvf)
 	{
-		for (int i = 0; i < csvf.no_lines-1; i++)
+		int num_lines = std::min(csvf.no_lines - 1, csvf.end_rows_read - csvf.start_rows_read);
+
+		for (int i = 0; i < num_lines; i++)
 		{
 			for (int j = 0; j < csvf.no_tokens; j++)
 			{
@@ -78,5 +80,8 @@ private:
 	int	numclosed;
 	vector<fpos_t>lineEndMap;
 	bool linesMapped = false;
+
+	int start_rows_read=2;
+	int end_rows_read= no_lines-1;
 };
 

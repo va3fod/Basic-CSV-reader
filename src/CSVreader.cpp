@@ -50,7 +50,6 @@ int CCSVreader::get_header(int line_no)
 		no_tokens = get_header_tokens(p_line_w, pheader);
 		pheader = new char *[no_tokens];
 		get_header_tokens(pline_w_copy, pheader);
-
 	}
 
 	return 0;
@@ -302,8 +301,10 @@ int CCSVreader::read_data( int line_start, int line_end)
 	int line = 0;
 	int jj = 0;
 
-	// read new data from the csv file, so fill with NULLs the previous data in the pdata
+	start_rows_read = line_start;
+	end_rows_read = line_end;
 
+	// read new data from the csv file, so fill with NULLs the previous data in the pdata
 	for ( jj = 0; jj < no_lines; jj++)
 	{
 		pdata[jj] = NULL;
@@ -323,7 +324,7 @@ int CCSVreader::read_data( int line_start, int line_end)
 	return 0;
 }
 //============================================================================
-int CCSVreader::get_no_lines()
+const int CCSVreader::get_no_lines()
 {
 	char ch_w;
 	int i_line = 0;
@@ -360,7 +361,8 @@ int CCSVreader::get_no_lines()
 }
 const int CCSVreader::get_no_data_rows()
 {
-	return no_lines-1;
+	int num_lines = std::min(no_lines - 1, end_rows_read - start_rows_read);
+	return num_lines;
 }
 
 // create the CCSVreader get number of coulms method
@@ -372,7 +374,6 @@ const int CCSVreader::get_no_columns(void)
 // close all the opened files and deallocate the memory, delete pointers
 int CCSVreader::clean_mess()
 {
-
 	if (!err)
 	{
 		numclosed = _fcloseall();
