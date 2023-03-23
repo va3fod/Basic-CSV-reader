@@ -9,6 +9,14 @@ using namespace sciplot;
 
 const char *filename = "Test2.csv";
 
+// this project is testing the csv reader class and plotting the data using sciplot
+// the csv file is a simple csv file with header and data
+// the header is the first line of the csv file
+// the data is the rest of the lines of the csv file
+// the data is separated by comma (,)
+// the data can be any type of data, but the data type is determined by the header
+// the header is a string of words separated by comma (,)
+
 int main(void)
 {
 	fpos_t pos = 0;
