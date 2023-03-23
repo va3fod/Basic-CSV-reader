@@ -6,7 +6,7 @@ This project is a simple demonstration of how to use the CSVreader class to read
 Usage
 To use this project, you need to have the following libraries installed:
 
-sciplot
+sciplot (ONLY if you want to plot the data as a test bed)
 C++ standard library
 Clone this repository to your local machine and compile the project. To compile the project, run the following command:
 
