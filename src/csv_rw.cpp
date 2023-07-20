@@ -51,6 +51,12 @@ int main(void)
 		vector<float> y2 = csvfile.GetVecData("speed");
 		vector<float> y3 = csvfile.GetVecData("H");
 		
+		// create time event vector called xeventTime1  = {10,10}
+		vector<float> xeventTime1 = { 10,10 };
+		// create y event vector called yeventTime1  = {0,1*1*maxY1}
+		float maxY1 = *max_element(y1.begin(), y1.end());
+		vector<float> yeventTime1 = { 0,1*1*maxY1 };
+
 
 		// using sciplot, plot the data for "x" and "y1"
 		sciplot::Plot2D plot,plot2,plot3;
@@ -79,9 +85,23 @@ int main(void)
 			.displayHorizontal()
 			.displayExpandWidthBy(2);
 
+		// draw the data
 		plot.drawCurve(time, y1).label("y1");
+		plot.drawCurve(time, y2).label("y2");
+		// draw the event lines
+		plot.drawCurve(xeventTime1, yeventTime1).label("event 1");
+
 		plot2.drawCurve(time, y2).label("y2");
+
 		plot3.drawCurve(time, y3).label("y3");
+
+		
+		
+
+
+		
+
+
 
 		// Create figure to hold plot
 		Figure fig = { {plot} ,{plot2} ,{plot3} };

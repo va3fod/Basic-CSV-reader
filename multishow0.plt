@@ -79,7 +79,9 @@ set style data histogram
 # PLOT COMMANDS
 #==============================================================================
 plot \
-    'plot0.dat' index 0 title 'y1' with lines linestyle 1 linewidth 2
+    'plot0.dat' index 0 title 'y1' with lines linestyle 1 linewidth 2, \
+    'plot0.dat' index 1 title 'y2' with lines linestyle 2 linewidth 2, \
+    'plot0.dat' index 2 title 'event 1' with lines linestyle 3 linewidth 2
 
 #==============================================================================
 # SETUP COMMANDS
