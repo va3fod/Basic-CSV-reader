@@ -26,3 +26,5 @@ The sciplot library is a C++ library for creating beautiful and publication-qual
 
 License
 This project is licensed under the MIT License. See the LICENSE file for more information.
+
+More apps by Val: [Val apps hub](https://va3fod.github.io/)
